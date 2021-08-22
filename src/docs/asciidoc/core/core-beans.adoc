@@ -1640,7 +1640,7 @@ inner bean, as the following example shows:
 	<bean id="outer" class="...">
 		<!-- instead of using a reference to a target bean, simply define the target bean inline -->
 		<property name="target">
-			<bean class="com.example.Person"> <!-- this is the inner bean -->
+			<bean class="com.example.com.wz.test.Person"> <!-- this is the inner bean -->
 				<property name="name" value="Fiona Apple"/>
 				<property name="age" value="25"/>
 			</bean>
@@ -1938,17 +1938,17 @@ another bean:
 		xsi:schemaLocation="http://www.springframework.org/schema/beans
 			https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-		<bean name="john-classic" class="com.example.Person">
+		<bean name="john-classic" class="com.example.com.wz.test.Person">
 			<property name="name" value="John Doe"/>
 			<property name="spouse" ref="jane"/>
 		</bean>
 
 		<bean name="john-modern"
-			class="com.example.Person"
+			class="com.example.com.wz.test.Person"
 			p:name="John Doe"
 			p:spouse-ref="jane"/>
 
-		<bean name="jane" class="com.example.Person">
+		<bean name="jane" class="com.example.com.wz.test.Person">
 			<property name="name" value="Jane Doe"/>
 		</bean>
 	</beans>
@@ -10869,13 +10869,13 @@ annotation to the method declaration, as the following example shows:
 You can also use generics to further define the structure of your event. Consider using an
 `EntityCreatedEvent<T>` where `T` is the type of the actual entity that got created. For example, you
 can create the following listener definition to receive only `EntityCreatedEvent` for a
-`Person`:
+`com.wz.test.Person`:
 
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
 ----
 	@EventListener
-	public void onPersonCreated(EntityCreatedEvent<Person> event) {
+	public void onPersonCreated(EntityCreatedEvent<com.wz.test.Person> event) {
 		// ...
 	}
 ----
@@ -10883,14 +10883,14 @@ can create the following listener definition to receive only `EntityCreatedEvent
 .Kotlin
 ----
 	@EventListener
-	fun onPersonCreated(event: EntityCreatedEvent<Person>) {
+	fun onPersonCreated(event: EntityCreatedEvent<com.wz.test.Person>) {
 		// ...
 	}
 ----
 
 Due to type erasure, this works only if the event that is fired resolves the generic
 parameters on which the event listener filters (that is, something like
-`class PersonCreatedEvent extends EntityCreatedEvent<Person> { ... }`).
+`class PersonCreatedEvent extends EntityCreatedEvent<com.wz.test.Person> { ... }`).
 
 In certain circumstances, this may become quite tedious if all events follow the same
 structure (as should be the case for the event in the preceding example). In such a case,

@@ -144,18 +144,18 @@ val string = request.awaitBody<String>()
 ----
 
 
-The following example extracts the body to a `Flux<Person>` (or a `Flow<Person>` in Kotlin),
-where `Person` objects are decoded from someserialized form, such as JSON or XML:
+The following example extracts the body to a `Flux<com.wz.test.Person>` (or a `Flow<com.wz.test.Person>` in Kotlin),
+where `com.wz.test.Person` objects are decoded from someserialized form, such as JSON or XML:
 
 [source,java,role="primary"]
 .Java
 ----
-Flux<Person> people = request.bodyToFlux(Person.class);
+Flux<com.wz.test.Person> people = request.bodyToFlux(com.wz.test.Person.class);
 ----
 [source,kotlin,role="secondary"]
 .Kotlin
 ----
-val people = request.bodyToFlow<Person>()
+val people = request.bodyToFlow<com.wz.test.Person>()
 ----
 
 The preceding examples are shortcuts that use the more general `ServerRequest.body(BodyExtractor)`,
@@ -167,13 +167,13 @@ also be written as follows:
 .Java
 ----
 Mono<String> string = request.body(BodyExtractors.toMono(String.class));
-Flux<Person> people = request.body(BodyExtractors.toFlux(Person.class));
+Flux<com.wz.test.Person> people = request.body(BodyExtractors.toFlux(com.wz.test.Person.class));
 ----
 [source,kotlin,role="secondary"]
 .Kotlin
 ----
 	val string = request.body(BodyExtractors.toMono(String::class.java)).awaitFirst()
-	val people = request.body(BodyExtractors.toFlux(Person::class.java)).asFlow()
+	val people = request.body(BodyExtractors.toFlux(com.wz.test.Person::class.java)).asFlow()
 ----
 
 The following example shows how to access form data:
@@ -228,13 +228,13 @@ content:
 [source,java,role="primary"]
 .Java
 ----
-Mono<Person> person = ...
-ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(person, Person.class);
+Mono<com.wz.test.Person> person = ...
+ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(person, com.wz.test.Person.class);
 ----
 [source,kotlin,role="secondary"]
 .Kotlin
 ----
-val person: Person = ...
+val person: com.wz.test.Person = ...
 ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).bodyValue(person)
 ----
 
@@ -291,7 +291,7 @@ That is convenient, but in an application we need multiple functions, and multip
 lambda's can get messy.
 Therefore, it is useful to group related handler functions together into a handler class, which
 has a similar role as  `@Controller` in an annotation-based application.
-For example, the following class exposes a reactive `Person` repository:
+For example, the following class exposes a reactive `com.wz.test.Person` repository:
 
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
@@ -308,12 +308,12 @@ public class PersonHandler {
 	}
 
 	public Mono<ServerResponse> listPeople(ServerRequest request) { // <1>
-		Flux<Person> people = repository.allPeople();
-		return ok().contentType(APPLICATION_JSON).body(people, Person.class);
+		Flux<com.wz.test.Person> people = repository.allPeople();
+		return ok().contentType(APPLICATION_JSON).body(people, com.wz.test.Person.class);
 	}
 
 	public Mono<ServerResponse> createPerson(ServerRequest request) { // <2>
-		Mono<Person> person = request.bodyToMono(Person.class);
+		Mono<com.wz.test.Person> person = request.bodyToMono(com.wz.test.Person.class);
 		return ok().build(repository.savePerson(person));
 	}
 
@@ -325,15 +325,15 @@ public class PersonHandler {
 	}
 }
 ----
-<1> `listPeople` is a handler function that returns all `Person` objects found in the repository as
+<1> `listPeople` is a handler function that returns all `com.wz.test.Person` objects found in the repository as
 JSON.
-<2> `createPerson` is a handler function that stores a new `Person` contained in the request body.
-Note that `PersonRepository.savePerson(Person)` returns `Mono<Void>`: an empty `Mono` that emits
+<2> `createPerson` is a handler function that stores a new `com.wz.test.Person` contained in the request body.
+Note that `PersonRepository.savePerson(com.wz.test.Person)` returns `Mono<Void>`: an empty `Mono` that emits
 a completion signal when the person has been read from the request and stored. So we use the
 `build(Publisher<Void>)` method to send a response when that completion signal is received (that is,
-when the `Person` has been saved).
+when the `com.wz.test.Person` has been saved).
 <3> `getPerson` is a handler function that returns a single person, identified by the `id` path
-variable. We retrieve that `Person` from the repository and create a JSON response, if it is
+variable. We retrieve that `com.wz.test.Person` from the repository and create a JSON response, if it is
 found. If it is not found, we use `switchIfEmpty(Mono<T>)` to return a 404 Not Found response.
 
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
@@ -342,12 +342,12 @@ found. If it is not found, we use `switchIfEmpty(Mono<T>)` to return a 404 Not F
 	class PersonHandler(private val repository: PersonRepository) {
 
 		suspend fun listPeople(request: ServerRequest): ServerResponse { // <1>
-			val people: Flow<Person> = repository.allPeople()
+			val people: Flow<com.wz.test.Person> = repository.allPeople()
 			return ok().contentType(APPLICATION_JSON).bodyAndAwait(people);
 		}
 
 		suspend fun createPerson(request: ServerRequest): ServerResponse { // <2>
-			val person = request.awaitBody<Person>()
+			val person = request.awaitBody<com.wz.test.Person>()
 			repository.savePerson(person)
 			return ok().buildAndAwait()
 		}
@@ -360,12 +360,12 @@ found. If it is not found, we use `switchIfEmpty(Mono<T>)` to return a 404 Not F
 		}
 	}
 ----
-<1> `listPeople` is a handler function that returns all `Person` objects found in the repository as
+<1> `listPeople` is a handler function that returns all `com.wz.test.Person` objects found in the repository as
 JSON.
-<2> `createPerson` is a handler function that stores a new `Person` contained in the request body.
-Note that `PersonRepository.savePerson(Person)` is a suspending function with no return type.
+<2> `createPerson` is a handler function that stores a new `com.wz.test.Person` contained in the request body.
+Note that `PersonRepository.savePerson(com.wz.test.Person)` is a suspending function with no return type.
 <3> `getPerson` is a handler function that returns a single person, identified by the `id` path
-variable. We retrieve that `Person` from the repository and create a JSON response, if it is
+variable. We retrieve that `com.wz.test.Person` from the repository and create a JSON response, if it is
 found. If it is not found, we return a 404 Not Found response.
 
 
@@ -374,7 +374,7 @@ found. If it is not found, we return a 404 Not Found response.
 
 A functional endpoint can use Spring's <<core.adoc#validation, validation facilities>> to
 apply validation to the request body. For example, given a custom Spring
-<<core.adoc#validation, Validator>> implementation for a `Person`:
+<<core.adoc#validation, Validator>> implementation for a `com.wz.test.Person`:
 
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
@@ -386,11 +386,11 @@ apply validation to the request body. For example, given a custom Spring
 		// ...
 
 		public Mono<ServerResponse> createPerson(ServerRequest request) {
-			Mono<Person> person = request.bodyToMono(Person.class).doOnNext(this::validate); // <2>
+			Mono<com.wz.test.Person> person = request.bodyToMono(com.wz.test.Person.class).doOnNext(this::validate); // <2>
 			return ok().build(repository.savePerson(person));
 		}
 
-		private void validate(Person person) {
+		private void validate(com.wz.test.Person person) {
 			Errors errors = new BeanPropertyBindingResult(person, "person");
 			validator.validate(person, errors);
 			if (errors.hasErrors()) {
@@ -413,13 +413,13 @@ apply validation to the request body. For example, given a custom Spring
 		// ...
 
 		suspend fun createPerson(request: ServerRequest): ServerResponse {
-			val person = request.awaitBody<Person>()
+			val person = request.awaitBody<com.wz.test.Person>()
 			validate(person) // <2>
 			repository.savePerson(person)
 			return ok().buildAndAwait()
 		}
 
-		private fun validate(person: Person) {
+		private fun validate(person: com.wz.test.Person) {
 			val errors: Errors = BeanPropertyBindingResult(person, "person");
 			validator.validate(person, errors);
 			if (errors.hasErrors()) {

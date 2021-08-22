@@ -50,7 +50,7 @@ Consider the following example of a small data object:
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
 ----
-	public class Person {
+	public class com.wz.test.Person {
 
 		private String name;
 		private int age;
@@ -61,10 +61,10 @@ Consider the following example of a small data object:
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
 .Kotlin
 ----
-	class Person(val name: String, val age: Int)
+	class com.wz.test.Person(val name: String, val age: Int)
 ----
 
-The next example provides validation behavior for the `Person` class by implementing the
+The next example provides validation behavior for the `com.wz.test.Person` class by implementing the
 following two methods of the `org.springframework.validation.Validator` interface:
 
 * `supports(Class)`: Can this `Validator` validate instances of the supplied `Class`?
@@ -73,7 +73,7 @@ following two methods of the `org.springframework.validation.Validator` interfac
 
 Implementing a `Validator` is fairly straightforward, especially when you know of the
 `ValidationUtils` helper class that the Spring Framework also provides. The following
-example implements `Validator` for `Person` instances:
+example implements `Validator` for `com.wz.test.Person` instances:
 
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
@@ -81,15 +81,15 @@ example implements `Validator` for `Person` instances:
 	public class PersonValidator implements Validator {
 
 		/**
-		 * This Validator validates only Person instances
+		 * This Validator validates only com.wz.test.Person instances
 		 */
 		public boolean supports(Class clazz) {
-			return Person.class.equals(clazz);
+			return com.wz.test.Person.class.equals(clazz);
 		}
 
 		public void validate(Object obj, Errors e) {
 			ValidationUtils.rejectIfEmpty(e, "name", "name.empty");
-			Person p = (Person) obj;
+			com.wz.test.Person p = (com.wz.test.Person) obj;
 			if (p.getAge() < 0) {
 				e.rejectValue("age", "negativevalue");
 			} else if (p.getAge() > 110) {
@@ -104,15 +104,15 @@ example implements `Validator` for `Person` instances:
 	class PersonValidator : Validator {
 
 		/**
-		 * This Validator validates only Person instances
+		 * This Validator validates only com.wz.test.Person instances
 		 */
 		override fun supports(clazz: Class<*>): Boolean {
-			return Person::class.java == clazz
+			return com.wz.test.Person::class.java == clazz
 		}
 
 		override fun validate(obj: Any, e: Errors) {
 			ValidationUtils.rejectIfEmpty(e, "name", "name.empty")
-			val p = obj as Person
+			val p = obj as com.wz.test.Person
 			if (p.age < 0) {
 				e.rejectValue("age", "negativevalue")
 			} else if (p.age > 110) {

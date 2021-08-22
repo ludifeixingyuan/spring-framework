@@ -9,7 +9,7 @@
 	</bean>
 
 	<!--
-		Test that overrides work on an inherited method
+		com.wz.test.Test that overrides work on an inherited method
 	-->
 	<bean id="overrideInheritedMethod" class="org.springframework.beans.factory.xml.OverrideOneMethodSubclass">
 		<lookup-method name="getPrototypeDependency" bean="jenny"/>

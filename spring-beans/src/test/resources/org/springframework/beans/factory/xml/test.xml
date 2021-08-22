@@ -71,7 +71,7 @@
 		<property name="spouse"><ref bean="rod"/></property>
 	</bean>
 
-	<!-- Test of lifecycle callbacks -->
+	<!-- com.wz.test.Test of lifecycle callbacks -->
 	<bean id="mustBeInitialized" class="org.springframework.beans.testfixture.beans.MustBeInitialized"/>
 
 	<bean id="lifecycle" class="org.springframework.beans.testfixture.beans.LifecycleBean"

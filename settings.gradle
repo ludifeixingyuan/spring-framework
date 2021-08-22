@@ -31,10 +31,10 @@ include "spring-webmvc"
 include "spring-websocket"
 include "framework-bom"
 include "integration-tests"
-// 自定义debug模块
-include 'spring-debug'
 
 rootProject.name = "spring"
 rootProject.children.each {project ->
 	project.buildFileName = "${project.name}.gradle"
 }
+include 'spring-debug'
+

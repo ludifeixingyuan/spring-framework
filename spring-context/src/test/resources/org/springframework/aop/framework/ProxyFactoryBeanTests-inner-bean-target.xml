@@ -2,7 +2,7 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "https://www.springframework.org/dtd/spring-beans-2.0.dtd">
 
 <!--
-	Test that inner bean for target means that we can use
+	com.wz.test.Test that inner bean for target means that we can use
 	autowire without ambiguity from target and proxy.
 	$Id: innerBeanTarget.xml,v 1.4 2006/08/20 19:08:40 jhoeller Exp $
 -->

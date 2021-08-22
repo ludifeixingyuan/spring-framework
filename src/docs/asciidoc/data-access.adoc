@@ -2492,9 +2492,9 @@ the `TransactionOperator` resembles the next example:
 		}
 
 		public Mono<Object> someServiceMethod() {
-			
+
 			// the code in this method runs in a transactional context
-			
+
             Mono<Object> update = updateOperation1();
 
 			return update.then(resultOfUpdateOperation2).as(transactionalOperator::transactional);
@@ -6400,7 +6400,7 @@ shows the test template:
 					.build();
 		}
 
-		@Test
+		@com.wz.test.Test
 		public void testDataAccess() {
 			JdbcTemplate template = new JdbcTemplate(db);
 			template.query( /* ... */ );
@@ -6430,7 +6430,7 @@ shows the test template:
 					.build()
 		}
 
-		@Test
+		@com.wz.test.Test
 		fun testDataAccess() {
 			val template = JdbcTemplate(db)
 			template.query( /* ... */)

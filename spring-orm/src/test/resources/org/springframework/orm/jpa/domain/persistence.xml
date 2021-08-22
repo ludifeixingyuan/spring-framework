@@ -2,8 +2,8 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence https://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
 	version="1.0">
 
-	<persistence-unit name="Person" transaction-type="RESOURCE_LOCAL">
-		<class>org.springframework.orm.jpa.domain.Person</class>
+	<persistence-unit name="com.wz.test.Person" transaction-type="RESOURCE_LOCAL">
+		<class>org.springframework.orm.jpa.domain.com.wz.test.Person</class>
 		<class>org.springframework.orm.jpa.domain.DriversLicense</class>
 		<exclude-unlisted-classes />
 	</persistence-unit>

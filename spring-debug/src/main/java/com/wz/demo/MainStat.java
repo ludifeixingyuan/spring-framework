@@ -17,6 +17,5 @@ public class MainStat {
 		ApplicationContext context=new AnnotationConfigApplicationContext(MainStat.class);
 		UserServiceImpl bean = context.getBean(UserServiceImpl.class);
 		bean.sayHello();
-
 	}
 }

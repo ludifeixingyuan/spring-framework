@@ -19,7 +19,7 @@
 	</bean>
 
 	<bean id="entityManagerFactory2" parent="abstractEMF">
-		<property name="persistenceUnitName" value="Test"/>
+		<property name="persistenceUnitName" value="com.wz.test.Test"/>
 	</bean>
 
 </beans>

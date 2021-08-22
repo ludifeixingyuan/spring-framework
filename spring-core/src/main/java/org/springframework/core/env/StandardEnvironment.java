@@ -51,6 +51,10 @@ package org.springframework.core.env;
  * @see SystemEnvironmentPropertySource
  * @see org.springframework.web.context.support.StandardServletEnvironment
  */
+
+/**
+ * 子类创建时候，创建父类。这个父类的构造方法里面有操作
+ */
 public class StandardEnvironment extends AbstractEnvironment {
 
 	/** System environment property source name: {@value}. */

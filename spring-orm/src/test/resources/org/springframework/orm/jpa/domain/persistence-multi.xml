@@ -3,12 +3,12 @@
 	version="1.0">
 
 	<persistence-unit name="Drivers" transaction-type="RESOURCE_LOCAL">
-		<class>org.springframework.orm.jpa.domain.Person</class>
+		<class>org.springframework.orm.jpa.domain.com.wz.test.Person</class>
 		<class>org.springframework.orm.jpa.domain.DriversLicense</class>
 		<exclude-unlisted-classes />
 	</persistence-unit>
 
-	<persistence-unit name="Test" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="com.wz.test.Test" transaction-type="RESOURCE_LOCAL">
 		<class>org.springframework.beans.testfixture.beans.TestBean</class>
 		<exclude-unlisted-classes />
 	</persistence-unit>

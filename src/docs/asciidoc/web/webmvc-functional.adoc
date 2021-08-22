@@ -136,18 +136,18 @@ val string = request.body<String>()
 ----
 
 
-The following example extracts the body to a `List<Person>`,
-where `Person` objects are decoded from a serialized form, such as JSON or XML:
+The following example extracts the body to a `List<com.wz.test.Person>`,
+where `com.wz.test.Person` objects are decoded from a serialized form, such as JSON or XML:
 
 [source,java,role="primary"]
 .Java
 ----
-List<Person> people = request.body(new ParameterizedTypeReference<List<Person>>() {});
+List<com.wz.test.Person> people = request.body(new ParameterizedTypeReference<List<com.wz.test.Person>>() {});
 ----
 [source,kotlin,role="secondary"]
 .Kotlin
 ----
-val people = request.body<Person>()
+val people = request.body<com.wz.test.Person>()
 ----
 
 The following example shows how to access parameters:
@@ -175,13 +175,13 @@ content:
 [source,java,role="primary"]
 .Java
 ----
-Person person = ...
+com.wz.test.Person person = ...
 ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(person);
 ----
 [source,kotlin,role="secondary"]
 .Kotlin
 ----
-val person: Person = ...
+val person: com.wz.test.Person = ...
 ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(person)
 ----
 
@@ -223,7 +223,7 @@ That is convenient, but in an application we need multiple functions, and multip
 lambda's can get messy.
 Therefore, it is useful to group related handler functions together into a handler class, which
 has a similar role as  `@Controller` in an annotation-based application.
-For example, the following class exposes a reactive `Person` repository:
+For example, the following class exposes a reactive `com.wz.test.Person` repository:
 
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
@@ -240,19 +240,19 @@ public class PersonHandler {
 	}
 
 	public ServerResponse listPeople(ServerRequest request) { // <1>
-		List<Person> people = repository.allPeople();
+		List<com.wz.test.Person> people = repository.allPeople();
 		return ok().contentType(APPLICATION_JSON).body(people);
 	}
 
 	public ServerResponse createPerson(ServerRequest request) throws Exception { // <2>
-		Person person = request.body(Person.class);
+		com.wz.test.Person person = request.body(com.wz.test.Person.class);
 		repository.savePerson(person);
 		return ok().build();
 	}
 
 	public ServerResponse getPerson(ServerRequest request) { // <3>
 		int personId = Integer.parseInt(request.pathVariable("id"));
-		Person person = repository.getPerson(personId);
+		com.wz.test.Person person = repository.getPerson(personId);
 		if (person != null) {
 			return ok().contentType(APPLICATION_JSON).body(person);
 		}
@@ -263,11 +263,11 @@ public class PersonHandler {
 
 }
 ----
-<1> `listPeople` is a handler function that returns all `Person` objects found in the repository as
+<1> `listPeople` is a handler function that returns all `com.wz.test.Person` objects found in the repository as
 JSON.
-<2> `createPerson` is a handler function that stores a new `Person` contained in the request body.
+<2> `createPerson` is a handler function that stores a new `com.wz.test.Person` contained in the request body.
 <3> `getPerson` is a handler function that returns a single person, identified by the `id` path
-variable. We retrieve that `Person` from the repository and create a JSON response, if it is
+variable. We retrieve that `com.wz.test.Person` from the repository and create a JSON response, if it is
 found. If it is not found, we return a 404 Not Found response.
 
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
@@ -276,12 +276,12 @@ found. If it is not found, we return a 404 Not Found response.
 	class PersonHandler(private val repository: PersonRepository) {
 
 		fun listPeople(request: ServerRequest): ServerResponse { // <1>
-			val people: List<Person> = repository.allPeople()
+			val people: List<com.wz.test.Person> = repository.allPeople()
 			return ok().contentType(APPLICATION_JSON).body(people);
 		}
 
 		fun createPerson(request: ServerRequest): ServerResponse { // <2>
-			val person = request.body<Person>()
+			val person = request.body<com.wz.test.Person>()
 			repository.savePerson(person)
 			return ok().build()
 		}
@@ -294,11 +294,11 @@ found. If it is not found, we return a 404 Not Found response.
 		}
 	}
 ----
-<1> `listPeople` is a handler function that returns all `Person` objects found in the repository as
+<1> `listPeople` is a handler function that returns all `com.wz.test.Person` objects found in the repository as
 JSON.
-<2> `createPerson` is a handler function that stores a new `Person` contained in the request body.
+<2> `createPerson` is a handler function that stores a new `com.wz.test.Person` contained in the request body.
 <3> `getPerson` is a handler function that returns a single person, identified by the `id` path
-variable. We retrieve that `Person` from the repository and create a JSON response, if it is
+variable. We retrieve that `com.wz.test.Person` from the repository and create a JSON response, if it is
 found. If it is not found, we return a 404 Not Found response.
 
 
@@ -307,7 +307,7 @@ found. If it is not found, we return a 404 Not Found response.
 
 A functional endpoint can use Spring's <<core.adoc#validation, validation facilities>> to
 apply validation to the request body. For example, given a custom Spring
-<<core.adoc#validation, Validator>> implementation for a `Person`:
+<<core.adoc#validation, Validator>> implementation for a `com.wz.test.Person`:
 
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
@@ -319,13 +319,13 @@ apply validation to the request body. For example, given a custom Spring
 		// ...
 
 		public ServerResponse createPerson(ServerRequest request) {
-			Person person = request.body(Person.class);
+			com.wz.test.Person person = request.body(com.wz.test.Person.class);
 			validate(person); // <2>
 			repository.savePerson(person);
 			return ok().build();
 		}
 
-		private void validate(Person person) {
+		private void validate(com.wz.test.Person person) {
 			Errors errors = new BeanPropertyBindingResult(person, "person");
 			validator.validate(person, errors);
 			if (errors.hasErrors()) {
@@ -348,13 +348,13 @@ apply validation to the request body. For example, given a custom Spring
 		// ...
 
 		fun createPerson(request: ServerRequest): ServerResponse {
-			val person = request.body<Person>()
+			val person = request.body<com.wz.test.Person>()
 			validate(person) // <2>
 			repository.savePerson(person)
 			return ok().build()
 		}
 
-		private fun validate(person: Person) {
+		private fun validate(person: com.wz.test.Person) {
 			val errors: Errors = BeanPropertyBindingResult(person, "person")
 			validator.validate(person, errors)
 			if (errors.hasErrors()) {

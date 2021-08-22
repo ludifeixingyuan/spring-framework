@@ -1073,7 +1073,7 @@ The following listing shows the example:
 
 	<bean id="person"
 		class="org.springframework.aop.framework.ProxyFactoryBean">
-		<property name="proxyInterfaces" value="com.mycompany.Person"/>
+		<property name="proxyInterfaces" value="com.mycompany.com.wz.test.Person"/>
 
 		<property name="target" ref="personTarget"/>
 		<property name="interceptorNames">
@@ -1095,18 +1095,18 @@ return independent proxy instances. If any of the advisors is itself a prototype
 independent instance would need to be returned, so it is necessary to be able to obtain
 an instance of the prototype from the factory. Holding a reference is not sufficient.
 
-The `person` bean definition shown earlier can be used in place of a `Person` implementation, as
+The `person` bean definition shown earlier can be used in place of a `com.wz.test.Person` implementation, as
 follows:
 
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
 ----
-	Person person = (Person) factory.getBean("person");
+	com.wz.test.Person person = (com.wz.test.Person) factory.getBean("person");
 ----
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
 .Kotlin
 ----
-	val person = factory.getBean("person") as Person;
+	val person = factory.getBean("person") as com.wz.test.Person;
 ----
 
 Other beans in the same IoC context can express a strongly typed dependency on it, as
@@ -1119,7 +1119,7 @@ with an ordinary Java object. The following example shows how to do so:
 	</bean>
 ----
 
-The `PersonUser` class in this example exposes a property of type `Person`. As far as
+The `PersonUser` class in this example exposes a property of type `com.wz.test.Person`. As far as
 it is concerned, the AOP proxy can be used transparently in place of a "`real`" person
 implementation. However, its class would be a dynamic proxy class. It would be possible
 to cast it to the `Advised` interface (discussed later).
@@ -1138,7 +1138,7 @@ anonymous inner bean:
 	<bean id="debugInterceptor" class="org.springframework.aop.interceptor.DebugInterceptor"/>
 
 	<bean id="person" class="org.springframework.aop.framework.ProxyFactoryBean">
-		<property name="proxyInterfaces" value="com.mycompany.Person"/>
+		<property name="proxyInterfaces" value="com.mycompany.com.wz.test.Person"/>
 		<!-- Use inner bean, not local reference to target -->
 		<property name="target">
 			<bean class="com.mycompany.PersonImpl">
@@ -1155,7 +1155,7 @@ anonymous inner bean:
 	</bean>
 ----
 
-Using an anonymous inner bean has the advantage that there is only one object of type `Person`. This is useful if we want
+Using an anonymous inner bean has the advantage that there is only one object of type `com.wz.test.Person`. This is useful if we want
 to prevent users of the application context from obtaining a reference to the un-advised
 object or need to avoid any ambiguity with Spring IoC autowiring. There is also,
 arguably, an advantage in that the `ProxyFactoryBean` definition is self-contained.
@@ -1169,8 +1169,8 @@ factory might actually be an advantage (for example, in certain test scenarios).
 
 What if you need to proxy a class, rather than one or more interfaces?
 
-Imagine that in our earlier example, there was no `Person` interface. We needed to advise
-a class called `Person` that did not implement any business interface. In this case, you
+Imagine that in our earlier example, there was no `com.wz.test.Person` interface. We needed to advise
+a class called `com.wz.test.Person` that did not implement any business interface. In this case, you
 can configure Spring to use CGLIB proxying rather than dynamic proxies. To do so, set the
 `proxyTargetClass` property on the `ProxyFactoryBean` shown earlier to `true`. While it is best to
 program to interfaces rather than classes, the ability to advise classes that do not

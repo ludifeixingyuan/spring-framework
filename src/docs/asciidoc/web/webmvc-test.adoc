@@ -13,10 +13,10 @@ including efficient caching of the loaded configuration across test methods and 
 loading a `WebApplicationContext` with a `MockServletContext`.
 See <<testing.adoc#testcontext-framework,TestContext Framework>> for more details.
 
-* Spring MVC Test: A framework, also known as `MockMvc`, for testing annotated controllers
+* Spring MVC com.wz.test.Test: A framework, also known as `MockMvc`, for testing annotated controllers
 through the `DispatcherServlet` (that is, supporting annotations), complete with the
 Spring MVC infrastructure but without an HTTP server.
-See <<testing.adoc#spring-mvc-test-framework, Spring MVC Test>> for more details.
+See <<testing.adoc#spring-mvc-test-framework, Spring MVC com.wz.test.Test>> for more details.
 
 * Client-side REST: `spring-test` provides a `MockRestServiceServer` that you can use as
 a mock server for testing client-side code that internally uses the `RestTemplate`.

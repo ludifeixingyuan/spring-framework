@@ -209,7 +209,7 @@ Then you can use built-in assertions for the body. The following example shows o
 	client.get().uri("/persons")
 			.exchange()
 			.expectStatus().isOk()
-			.expectBodyList(Person.class).hasSize(3).contains(person);
+			.expectBodyList(com.wz.test.Person.class).hasSize(3).contains(person);
 ----
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
 .Kotlin
@@ -219,7 +219,7 @@ Then you can use built-in assertions for the body. The following example shows o
 	client.get().uri("/persons")
 			.exchange()
 			.expectStatus().isOk()
-			.expectBodyList<Person>().hasSize(3).contains(person)
+			.expectBodyList<com.wz.test.Person>().hasSize(3).contains(person)
 ----
 
 You can also go beyond the built-in assertions and create your own, as the following example shows:
@@ -232,7 +232,7 @@ You can also go beyond the built-in assertions and create your own, as the follo
 	client.get().uri("/persons/1")
 			.exchange()
 			.expectStatus().isOk()
-			.expectBody(Person.class)
+			.expectBody(com.wz.test.Person.class)
 			.consumeWith(result -> {
 				// custom assertions (e.g. AssertJ)...
 			});
@@ -243,7 +243,7 @@ You can also go beyond the built-in assertions and create your own, as the follo
 	client.get().uri("/persons/1")
 			.exchange()
 			.expectStatus().isOk()
-			.expectBody<Person>()
+			.expectBody<com.wz.test.Person>()
 			.consumeWith {
 				// custom assertions (e.g. AssertJ)...
 			}
@@ -254,10 +254,10 @@ You can also exit the workflow and get a result, as follows:
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
 ----
-	EntityExchangeResult<Person> result = client.get().uri("/persons/1")
+	EntityExchangeResult<com.wz.test.Person> result = client.get().uri("/persons/1")
 			.exchange()
 			.expectStatus().isOk()
-			.expectBody(Person.class)
+			.expectBody(com.wz.test.Person.class)
 			.returnResult();
 ----
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
@@ -268,7 +268,7 @@ You can also exit the workflow and get a result, as follows:
 	val result = client.get().uri("/persons/1")
 			.exchange()
 			.expectStatus().isOk
-			.expectBody<Person>()
+			.expectBody<com.wz.test.Person>()
 			.returnResult()
 ----
 
@@ -308,7 +308,7 @@ Alternatively, if you want to assert there is no response content, you can use c
 .Java
 ----
 	client.post().uri("/persons")
-			.body(personMono, Person.class)
+			.body(personMono, com.wz.test.Person.class)
 			.exchange()
 			.expectStatus().isCreated()
 			.expectBody().isEmpty();
