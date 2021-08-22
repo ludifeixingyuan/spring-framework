@@ -1,9 +1,9 @@
-package com.wz.test;
+package com.wz.course3;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class Test {
+public class Main {
 
     public static void main(String[] args) {
 //        MyClassPathXmlApplicationContext ac = new MyClassPathXmlApplicationContext("factoryBean.xml");

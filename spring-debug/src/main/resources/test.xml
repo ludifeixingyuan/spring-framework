@@ -11,7 +11,7 @@
 <!--        <constructor-arg name="id" value="1"></constructor-arg>-->
 <!--        <constructor-arg name="name" value="zhangsan"></constructor-arg>-->
 <!--    </bean>-->
-    <bean id="person2" class="com.wz.test.Person">
+    <bean id="person2" class="com.wz.course3.Person">
         <property name="id" value="2"></property>
         <property name="name" value="lisi"></property>
     </bean>

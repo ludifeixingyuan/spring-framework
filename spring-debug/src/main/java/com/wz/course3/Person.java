@@ -1,4 +1,4 @@
-package com.wz.test;
+package com.wz.course3;
 
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.stereotype.Component;
