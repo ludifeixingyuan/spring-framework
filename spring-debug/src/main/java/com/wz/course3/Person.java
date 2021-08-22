@@ -61,7 +61,7 @@ public class Person implements BeanClassLoaderAware {
 
 	@Override
 	public String toString() {
-		return "com.wz.test.Person{" +
+		return "com.wz.course3.Person{" +
 				"id=" + id +
 				", name='" + name + '\'' +
 				'}';
