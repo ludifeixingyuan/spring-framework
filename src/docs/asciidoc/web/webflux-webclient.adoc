@@ -380,10 +380,10 @@ The following example shows how to do so:
 ----
 	WebClient client = WebClient.create("https://example.org");
 
-	Mono<com.wz.test.Person> result = client.get()
+	Mono<Person> result = client.get()
 			.uri("/persons/{id}", id).accept(MediaType.APPLICATION_JSON)
 			.retrieve()
-			.bodyToMono(com.wz.test.Person.class);
+			.bodyToMono(Person.class);
 ----
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
 .Kotlin
@@ -393,7 +393,7 @@ The following example shows how to do so:
 	val result = client.get()
 			.uri("/persons/{id}", id).accept(MediaType.APPLICATION_JSON)
 			.retrieve()
-			.awaitBody<com.wz.test.Person>()
+			.awaitBody<Person>()
 ----
 
 You can also get a stream of objects decoded from the response, as the following example shows:
@@ -424,12 +424,12 @@ as the following example shows:
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
 ----
-	Mono<com.wz.test.Person> result = client.get()
+	Mono<Person> result = client.get()
 			.uri("/persons/{id}", id).accept(MediaType.APPLICATION_JSON)
 			.retrieve()
 			.onStatus(HttpStatus::is4xxClientError, response -> ...)
 			.onStatus(HttpStatus::is5xxServerError, response -> ...)
-			.bodyToMono(com.wz.test.Person.class);
+			.bodyToMono(Person.class);
 ----
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
 .Kotlin
@@ -439,7 +439,7 @@ as the following example shows:
 			.retrieve()
 			.onStatus(HttpStatus::is4xxClientError) { ... }
 			.onStatus(HttpStatus::is5xxServerError) { ... }
-			.awaitBody<com.wz.test.Person>()
+			.awaitBody<Person>()
 ----
 
 When `onStatus` is used, if the response is expected to have content, then the `onStatus`
@@ -458,10 +458,10 @@ to `retrieve()` but also provides access to the `ClientResponse`:
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
 ----
-	Mono<com.wz.test.Person> result = client.get()
+	Mono<Person> result = client.get()
 			.uri("/persons/{id}", id).accept(MediaType.APPLICATION_JSON)
 			.exchange()
-			.flatMap(response -> response.bodyToMono(com.wz.test.Person.class));
+			.flatMap(response -> response.bodyToMono(Person.class));
 ----
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
 .Kotlin
@@ -469,7 +469,7 @@ to `retrieve()` but also provides access to the `ClientResponse`:
 	val result = client.get()
 			.uri("/persons/{id}", id).accept(MediaType.APPLICATION_JSON)
 			.awaitExchange()
-			.awaitBody<com.wz.test.Person>()
+			.awaitBody<Person>()
 ----
 
 At this level, you can also create a full `ResponseEntity`:
@@ -477,10 +477,10 @@ At this level, you can also create a full `ResponseEntity`:
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
 ----
-	Mono<ResponseEntity<com.wz.test.Person>> result = client.get()
+	Mono<ResponseEntity<Person>> result = client.get()
 			.uri("/persons/{id}", id).accept(MediaType.APPLICATION_JSON)
 			.exchange()
-			.flatMap(response -> response.toEntity(com.wz.test.Person.class));
+			.flatMap(response -> response.toEntity(Person.class));
 ----
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
 .Kotlin
@@ -488,7 +488,7 @@ At this level, you can also create a full `ResponseEntity`:
 	val result = client.get()
 			.uri("/persons/{id}", id).accept(MediaType.APPLICATION_JSON)
 			.awaitExchange()
-			.toEntity<com.wz.test.Person>()
+			.toEntity<Person>()
 ----
 
 Note that (unlike `retrieve()`), with `exchange()`, there are no automatic error signals for
@@ -515,24 +515,24 @@ like `Mono` or Kotlin Coroutines `Deferred` as the following example shows:
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
 ----
-	Mono<com.wz.test.Person> personMono = ... ;
+	Mono<Person> personMono = ... ;
 
 	Mono<Void> result = client.post()
 			.uri("/persons/{id}", id)
 			.contentType(MediaType.APPLICATION_JSON)
-			.body(personMono, com.wz.test.Person.class)
+			.body(personMono, Person.class)
 			.retrieve()
 			.bodyToMono(Void.class);
 ----
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
 .Kotlin
 ----
-	val personDeferred: Deferred<com.wz.test.Person> = ...
+	val personDeferred: Deferred<Person> = ...
 
 	client.post()
 			.uri("/persons/{id}", id)
 			.contentType(MediaType.APPLICATION_JSON)
-			.body<com.wz.test.Person>(personDeferred)
+			.body<Person>(personDeferred)
 			.retrieve()
 			.awaitBody<Unit>()
 ----
@@ -542,19 +542,19 @@ You can also have a stream of objects be encoded, as the following example shows
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
 ----
-	Flux<com.wz.test.Person> personFlux = ... ;
+	Flux<Person> personFlux = ... ;
 
 	Mono<Void> result = client.post()
 			.uri("/persons/{id}", id)
 			.contentType(MediaType.APPLICATION_STREAM_JSON)
-			.body(personFlux, com.wz.test.Person.class)
+			.body(personFlux, Person.class)
 			.retrieve()
 			.bodyToMono(Void.class);
 ----
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
 .Kotlin
 ----
-	val people: Flow<com.wz.test.Person> = ...
+	val people: Flow<Person> = ...
 
 	client.post()
 			.uri("/persons/{id}", id)
@@ -570,7 +570,7 @@ as the following example shows:
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
 ----
-	com.wz.test.Person person = ... ;
+	Person person = ... ;
 
 	Mono<Void> result = client.post()
 			.uri("/persons/{id}", id)
@@ -582,7 +582,7 @@ as the following example shows:
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
 .Kotlin
 ----
-	val person: com.wz.test.Person = ...
+	val person: Person = ...
 
 	client.post()
 			.uri("/persons/{id}", id)
@@ -665,7 +665,7 @@ multipart request. The following example shows how to create a `MultiValueMap<St
 	MultipartBodyBuilder builder = new MultipartBodyBuilder();
 	builder.part("fieldPart", "fieldValue");
 	builder.part("filePart1", new FileSystemResource("...logo.png"));
-	builder.part("jsonPart", new com.wz.test.Person("Jason"));
+	builder.part("jsonPart", new Person("Jason"));
 	builder.part("myPart", part); // Part from a server request
 
 	MultiValueMap<String, HttpEntity<?>> parts = builder.build();
@@ -676,7 +676,7 @@ multipart request. The following example shows how to create a `MultiValueMap<St
 	val builder = MultipartBodyBuilder().apply {
 		part("fieldPart", "fieldValue")
 		part("filePart1", new FileSystemResource("...logo.png"))
-		part("jsonPart", new com.wz.test.Person("Jason"))
+		part("jsonPart", new Person("Jason"))
 		part("myPart", part) // Part from a server request
 	}
 
@@ -874,12 +874,12 @@ index 0:
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
 ----
-	com.wz.test.Person person = client.get().uri("/person/{id}", i).retrieve()
-		.bodyToMono(com.wz.test.Person.class)
+	Person person = client.get().uri("/person/{id}", i).retrieve()
+		.bodyToMono(Person.class)
 		.block();
 
-	List<com.wz.test.Person> persons = client.get().uri("/persons").retrieve()
-		.bodyToFlux(com.wz.test.Person.class)
+	List<Person> persons = client.get().uri("/persons").retrieve()
+		.bodyToFlux(Person.class)
 		.collectList()
 		.block();
 ----
@@ -888,12 +888,12 @@ index 0:
 ----
 	val person = runBlocking {
 		client.get().uri("/person/{id}", i).retrieve()
-				.awaitBody<com.wz.test.Person>()
+				.awaitBody<Person>()
 	}
 
 	val persons = runBlocking {
 		client.get().uri("/persons").retrieve()
-				.bodyToFlow<com.wz.test.Person>()
+				.bodyToFlow<Person>()
 				.toList()
 	}
 ----
@@ -904,8 +904,8 @@ response individually, and instead wait for the combined result:
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
 ----
-	Mono<com.wz.test.Person> personMono = client.get().uri("/person/{id}", personId)
-			.retrieve().bodyToMono(com.wz.test.Person.class);
+	Mono<Person> personMono = client.get().uri("/person/{id}", personId)
+			.retrieve().bodyToMono(Person.class);
 
 	Mono<List<Hobby>> hobbiesMono = client.get().uri("/person/{id}/hobbies", personId)
 			.retrieve().bodyToFlux(Hobby.class).collectList();
@@ -924,7 +924,7 @@ response individually, and instead wait for the combined result:
 	val data = runBlocking {
 			val personDeferred = async {
 				client.get().uri("/person/{id}", personId)
-						.retrieve().awaitBody<com.wz.test.Person>()
+						.retrieve().awaitBody<Person>()
 			}
 
 			val hobbiesDeferred = async {

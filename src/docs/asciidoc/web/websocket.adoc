@@ -2532,9 +2532,9 @@ this is not useful enough, since much of what a controller does depends on its
 annotations. Pure unit tests simply cannot test that.
 
 Ideally, controllers under test should be invoked as they are at runtime, much like
-the approach to testing controllers that handle HTTP requests by using the Spring MVC com.wz.test.Test
+the approach to testing controllers that handle HTTP requests by using the Spring MVC Test
 framework -- that is, without running a Servlet container but relying on the Spring Framework
-to invoke the annotated controllers. As with Spring MVC com.wz.test.Test, you have two
+to invoke the annotated controllers. As with Spring MVC Test, you have two
 possible alternatives here, either use a "`context-based`" or use a "`standalone`" setup:
 
 * Load the actual Spring configuration with the help of the

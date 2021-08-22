@@ -615,11 +615,11 @@ For Kotlin `Flow`, a  `Flow<T>.transactional` extension is provided.
 
         fun updatePeople() = findPeople().map(::updatePerson).transactional(operator)
 
-        private fun findPeople(): Flow<com.wz.test.Person> {
+        private fun findPeople(): Flow<Person> {
             // SELECT SQL statement
         }
 
-        private suspend fun updatePerson(person: com.wz.test.Person): com.wz.test.Person {
+        private suspend fun updatePerson(person: Person): Person {
             // UPDATE SQL statement
         }
     }
@@ -680,7 +680,7 @@ within the primary constructor, as in the following example:
 
 [source,kotlin,indent=0]
 ----
-	class com.wz.test.Person(val name: String, val age: Int)
+	class Person(val name: String, val age: Int)
 ----
 
 You can optionally add https://kotlinlang.org/docs/reference/data-classes.html[the `data` keyword]
@@ -692,13 +692,13 @@ in the primary constructor:
 * `componentN()` functions that correspond to the properties in their order of declaration
 * `copy()` function
 
-As the following example shows, this allows for easy changes to individual properties, even if `com.wz.test.Person` properties are read-only:
+As the following example shows, this allows for easy changes to individual properties, even if `Person` properties are read-only:
 
 [source,kotlin,indent=0]
 ----
-	data class com.wz.test.Person(val name: String, val age: Int)
+	data class Person(val name: String, val age: Int)
 
-	val jack = com.wz.test.Person(name = "Jack", age = 1)
+	val jack = Person(name = "Jack", age = 1)
 	val olderJack = jack.copy(age = 2)
 ----
 
@@ -902,7 +902,7 @@ class IntegrationTests {
     application.start()
   }
 
-  @com.wz.test.Test
+  @Test
   fun `Find all users on HTML page`() {
     client.get().uri("/users")
         .accept(TEXT_HTML)
@@ -934,13 +934,13 @@ class SpecificationLikeTests {
   inner class Calculator {
      val calculator = SampleCalculator()
 
-     @com.wz.test.Test
+     @Test
      fun `should return the result of adding the first number to the second number`() {
         val sum = calculator.sum(2, 4)
         assertEquals(6, sum)
      }
 
-     @com.wz.test.Test
+     @Test
      fun `should return the result of subtracting the second number from the first number`() {
         val subtract = calculator.subtract(4, 2)
         assertEquals(2, subtract)

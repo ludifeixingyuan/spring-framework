@@ -53,10 +53,10 @@
 
 		<!-- Type Names -->
 		<module name="TypeName">
-			<property name="format" value="^[A-Z][a-zA-Z0-9_]*(?&lt;!com.wz.test.Test)$" />
+			<property name="format" value="^[A-Z][a-zA-Z0-9_]*(?&lt;!Test)$" />
 			<property name="tokens" value="CLASS_DEF" />
 			<message key="name.invalidPattern"
-				value="Class name ''{0}'' must not end with ''com.wz.test.Test'' (checked pattern ''{1}'')." />
+				value="Class name ''{0}'' must not end with ''Test'' (checked pattern ''{1}'')." />
 		</module>
 
 		<!-- Coding -->
@@ -119,7 +119,7 @@
 			<property name="id" value="bannedJUnit4Imports"/>
 			<property name="regexp" value="true" />
 			<property name="illegalClasses"
-				value="^org\.junit\.(com.wz.test.Test|BeforeClass|AfterClass|Before|After|Ignore|FixMethodOrder|Rule|ClassRule|Assert|Assume)$,^org\.junit\.(Assert|Assume)\..+,^org\.junit\.(experimental|internal|matchers|rules|runner|runners|validator)\..+" />
+				value="^org\.junit\.(Test|BeforeClass|AfterClass|Before|After|Ignore|FixMethodOrder|Rule|ClassRule|Assert|Assume)$,^org\.junit\.(Assert|Assume)\..+,^org\.junit\.(experimental|internal|matchers|rules|runner|runners|validator)\..+" />
 		</module>
 		<module name="com.puppycrawl.tools.checkstyle.checks.imports.IllegalImportCheck">
 			<property name="id" value="bannedJUnitJupiterImports"/>
@@ -206,7 +206,7 @@
 		<module name="com.puppycrawl.tools.checkstyle.checks.regexp.RegexpSinglelineJavaCheck">
 			<property name="id" value="expectedExceptionAnnotation"/>
 			<property name="maximum" value="0"/>
-			<property name="format" value="\@com.wz.test.Test\(expected" />
+			<property name="format" value="\@Test\(expected" />
 			<property name="message" value="Please use AssertJ assertions." />
 			<property name="ignoreComments" value="true" />
 		</module>

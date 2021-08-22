@@ -14,7 +14,7 @@ getting started.
 <<core.adoc#spring-core, Core>> :: IoC Container, Events, Resources, i18n,
 Validation, Data Binding, Type Conversion, SpEL, AOP.
 <<testing.adoc#testing, Testing>> :: Mock Objects, TestContext Framework,
-Spring MVC com.wz.test.Test, WebTestClient.
+Spring MVC Test, WebTestClient.
 <<data-access.adoc#spring-data-tier, Data Access>> :: Transactions, DAO Support,
 JDBC, O/R Mapping, XML Marshalling.
 <<web.adoc#spring-web, Web Servlet>> :: Spring MVC, WebSocket, SockJS,

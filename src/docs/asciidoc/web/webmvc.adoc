@@ -1496,13 +1496,13 @@ The following example has type and method level mappings:
 	class PersonController {
 
 		@GetMapping("/{id}")
-		public com.wz.test.Person getPerson(@PathVariable Long id) {
+		public Person getPerson(@PathVariable Long id) {
 			// ...
 		}
 
 		@PostMapping
 		@ResponseStatus(HttpStatus.CREATED)
-		public void add(@RequestBody com.wz.test.Person person) {
+		public void add(@RequestBody Person person) {
 			// ...
 		}
 	}
@@ -1515,13 +1515,13 @@ The following example has type and method level mappings:
 	class PersonController {
 
 		@GetMapping("/{id}")
-		fun getPerson(@PathVariable id: Long): com.wz.test.Person {
+		fun getPerson(@PathVariable id: Long): Person {
 			// ...
 		}
 
 		@PostMapping
 		@ResponseStatus(HttpStatus.CREATED)
-		fun add(@RequestBody person: com.wz.test.Person) {
+		fun add(@RequestBody person: Person) {
 			// ...
 		}
 	}
@@ -4732,7 +4732,7 @@ for protecting web applications from malicious exploits. See the Spring Security
 reference documentation, including:
 
 * {doc-spring-security}/html5/#mvc[Spring MVC Security]
-* {doc-spring-security}/html5/#test-mockmvc[Spring MVC com.wz.test.Test Support]
+* {doc-spring-security}/html5/#test-mockmvc[Spring MVC Test Support]
 * {doc-spring-security}/html5/#csrf[CSRF protection]
 * {doc-spring-security}/html5/#headers[Security Response Headers]
 

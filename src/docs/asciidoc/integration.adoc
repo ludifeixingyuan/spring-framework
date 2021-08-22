@@ -1098,7 +1098,7 @@ turn, influences what message converter is selected.
 On a GET, the body of the response is deserialized to an output `Object`, as the following example shows:
 
 ----
-com.wz.test.Person person = restTemplate.getForObject("https://example.com/people/{id}", com.wz.test.Person.class, 42);
+Person person = restTemplate.getForObject("https://example.com/people/{id}", Person.class, 42);
 ----
 
 The `Accept` header of the request does not need to be explicitly set. In most cases,
@@ -1224,7 +1224,7 @@ part content with headers. For example:
 
 	parts.add("fieldPart", "fieldValue");
 	parts.add("filePart", new FileSystemResource("...logo.png"));
-	parts.add("jsonPart", new com.wz.test.Person("Jason"));
+	parts.add("jsonPart", new Person("Jason"));
 
 	HttpHeaders headers = new HttpHeaders();
 	headers.setContentType(MediaType.APPLICATION_XML);
@@ -5273,7 +5273,7 @@ which is available from Oracle.
 First, you must do some initializations on the CCI `InteractionSpec` to specify which
 SQL request to execute. In the following example, we directly define the way to convert the
 parameters of the request to a CCI record and the way to convert the CCI result record
-to an instance of the `com.wz.test.Person` class:
+to an instance of the `Person` class:
 
 [source,java,indent=0]
 [subs="verbatim,quotes"]
@@ -5298,9 +5298,9 @@ to an instance of the `com.wz.test.Person` class:
 		protected Object extractOutputData(Record outputRecord)
 				throws ResourceException, SQLException {
 			ResultSet rs = (ResultSet) outputRecord;
-			com.wz.test.Person person = null;
+			Person person = null;
 			if (rs.next()) {
-				com.wz.test.Person person = new com.wz.test.Person();
+				Person person = new Person();
 				person.setId(rs.getInt("person_id"));
 				person.setLastName(rs.getString("person_last_name"));
 				person.setFirstName(rs.getString("person_first_name"));
@@ -5320,9 +5320,9 @@ argument:
 ----
 	public class MyDaoImpl extends CciDaoSupport implements MyDao {
 
-		public com.wz.test.Person getPerson(int id) {
+		public Person getPerson(int id) {
 			PersonMappingOperation query = new PersonMappingOperation(getConnectionFactory());
-			com.wz.test.Person person = (com.wz.test.Person) query.execute(new Integer(id));
+			Person person = (Person) query.execute(new Integer(id));
 			return person;
 		}
 	}

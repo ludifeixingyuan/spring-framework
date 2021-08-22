@@ -27,7 +27,7 @@
 		</property>
 		<property name="mappingResources">
 			<list>
-				<value>org/springframework/test/context/junit4/orm/domain/com.wz.test.Person.hbm.xml</value>
+				<value>org/springframework/test/context/junit4/orm/domain/Person.hbm.xml</value>
 				<value>org/springframework/test/context/junit4/orm/domain/DriversLicense.hbm.xml</value>
 			</list>
 		</property>

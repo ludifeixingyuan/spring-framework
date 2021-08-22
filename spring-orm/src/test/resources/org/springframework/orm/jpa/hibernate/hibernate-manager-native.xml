@@ -3,11 +3,11 @@
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-	<bean id="entityManagerFactory" name="com.wz.test.Person" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" primary="true">
+	<bean id="entityManagerFactory" name="Person" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" primary="true">
 		<property name="annotatedClasses">
 			<list>
 				<value>org.springframework.orm.jpa.domain.DriversLicense</value>
-				<value>org.springframework.orm.jpa.domain.com.wz.test.Person</value>
+				<value>org.springframework.orm.jpa.domain.Person</value>
 			</list>
 		</property>
 		<property name="dataSource" ref="dataSource"/>
