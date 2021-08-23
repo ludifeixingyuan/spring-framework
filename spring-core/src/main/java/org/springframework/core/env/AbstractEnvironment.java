@@ -123,6 +123,7 @@ public abstract class AbstractEnvironment implements ConfigurableEnvironment {
 	 * 定制化属性资源
 	 */
 	public AbstractEnvironment() {
+		// systemEnvironment、systemProperties
 		customizePropertySources(this.propertySources);
 	}
 
