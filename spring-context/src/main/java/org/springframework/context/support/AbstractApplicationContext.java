@@ -527,7 +527,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		synchronized (this.startupShutdownMonitor) {
 			// Prepare this context for refreshing.
 			// 前戏：做容器刷新前准备工作
-			// 1.容器启动时间 2.设置状态 3.获取Environment对象，并加载当前系统属性值到Environment中 5.准备监听器事件的集合 默认为空集合
+			// 1.容器启动时间 2.设置状态 3.获取Environment对象，并加载当前系统属性值到Environment中 4.准备监听器事件的集合 默认为空集合
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
@@ -550,7 +550,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				// 在上下文中调用注册为Bean的工厂处理器
 				invokeBeanFactoryPostProcessors(beanFactory);
 
-				/**----------------------实例化前准备工作----------------------*/
+				/**----------------------实例化前准备工作begin----------------------*/
 				// Register bean processors that intercept bean creation.
 				// 实例化注册实现
 				// 注册截获Bean创建的Bean处理器
@@ -571,14 +571,14 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				// Check for listener beans and register them.
 				// 注册监听器
 				registerListeners();
-				/**----------------------实例化前准备工作----------------------*/
+				/**----------------------实例化前准备工作end-------------------------*/
 
 				// Instantiate all remaining (non-lazy-init) singletons.
 				// 实例化所有剩下的（非懒加载）单例对象
 				finishBeanFactoryInitialization(beanFactory);
 
 				// Last step: publish corresponding event.
-				// 最后一步 完成整体的刷新
+				// 最后一步  完成整体的刷新
 				finishRefresh();
 			}
 
