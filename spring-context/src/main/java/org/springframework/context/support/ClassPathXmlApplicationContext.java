@@ -142,7 +142,9 @@ public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContex
 		super(parent);
 		// 设置配置路径
 		setConfigLocations(configLocations);
+		// 初始化容器
 		if (refresh) {
+			// refresh的作用类似于对IOC容器的重启，在新建立好的容器中对容器进行初始化，对Bean定义资源进行载入
 			refresh();
 		}
 	}
